@@ -9,8 +9,8 @@ type ValidationResult<T = object> =
 	| { success: false; errorResponse: Response };
 
 type ParameterValidationResult = ValidationResult<{
-	validatedCode: string;
-	validatedState: string;
+	nonNullCode: string;
+	nonNullState: string;
 }>;
 
 export async function GET({ request }) {
@@ -19,12 +19,12 @@ export async function GET({ request }) {
 
 	const parameterValidation = validateParams(code, state);
 	if (!parameterValidation.success) return parameterValidation.errorResponse;
-	const { validatedCode, validatedState } = parameterValidation;
+	const { nonNullCode, nonNullState } = parameterValidation;
 
-	const stateValidation = validateState(validatedState, stateCookie);
+	const stateValidation = validateState(nonNullState, stateCookie);
 	if (!stateValidation.success) return stateValidation.errorResponse;
 
-	const accessToken = await fetchAccessToken(validatedCode);
+	const accessToken = await fetchAccessToken(nonNullCode);
 
 	return new Response(accessToken, {
 		headers: {
@@ -59,7 +59,7 @@ function validateParams(
 			errorResponse: new Response('Missing state parameter', { status: StatusCodes.BAD_REQUEST })
 		};
 	}
-	return { success: true, validatedCode: code, validatedState: state };
+	return { success: true, nonNullCode: code, nonNullState: state };
 }
 
 /**
