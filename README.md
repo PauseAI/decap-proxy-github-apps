@@ -2,6 +2,9 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/7f308f30-275f-4cbe-a22b-0a7762062d88/deploy-status)](https://app.netlify.com/projects/pauseai-cms-proxy/deploys)
 
+> [!WARNING]  
+> The application is not meant for external use. We will not answer support requests and might not address issues that don't affect us.
+
 This project serves as a proxy for handling GitHub App authentication, primarily designed to integrate with Decap CMS. It manages the OAuth flow, token exchange, and checks for GitHub App installations to ensure seamless access to GitHub repositories.
 
 ## Features
