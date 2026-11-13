@@ -5,8 +5,7 @@ import { env as privateEnv } from '$env/dynamic/private';
 import { extractParams } from '$lib/utils';
 
 type ValidationResult<T = object> =
-	| ({ success: true } & T)
-	| { success: false; errorResponse: Response };
+	({ success: true } & T) | { success: false; errorResponse: Response };
 
 type ParameterValidationResult = ValidationResult<{
 	nonNullCode: string;
